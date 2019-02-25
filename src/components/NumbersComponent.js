@@ -1,16 +1,30 @@
 import React from 'react';
 
 const Numbers = (props) => {
-  const numbers = [...Array(9).keys()];
+  const selectedClass = (number) => {
+    if(props.usedNumbers.includes(number)) {
+      return "used";
+    }
+    if(props.selectedNumbers.includes(number)) {
+      return "selected";
+    }
+  };
+
   return (
     <div className="card text-center">
       <div>
-        {numbers.map(number =>
-          <span>{number+1}</span>
+        {Numbers.list.map((number, i) =>
+          <span key={i} className={selectedClass(number)}
+                onClick={() => props.selectNumber(number)}>
+            {number}
+          </span>
         )}
       </div>
     </div>
   );
 }
+
+Numbers.list = [...Array(10).keys()];
+Numbers.list.shift();
 
 export default Numbers;
